@@ -1,0 +1,25 @@
+{
+  "name": "gemmicro-tech-auto",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright automation test project",
+  "scripts": {
+    "clean:results": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-Item './allure-results' -Recurse -Force -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Path './allure-results' -Force | Out-Null\"",
+    "test": "chcp 65001>nul && npm run clean:results && playwright test",
+    "test:smoke": "chcp 65001>nul && npm run clean:results && playwright test -g \"@smoke\"",
+    "test:p0": "chcp 65001>nul && npm run clean:results && playwright test -g \"@P0\"",
+    "test:p1": "chcp 65001>nul && npm run clean:results && playwright test -g \"@P1\"",
+    "test:p2": "chcp 65001>nul && npm run clean:results && playwright test -g \"@P2\"",
+    "test:headed": "chcp 65001>nul && npm run clean:results && playwright test --headed",
+    "test:ui": "chcp 65001>nul && npm run clean:results && playwright test --ui",
+    "report": "chcp 65001>nul && playwright show-report",
+    "allure:generate": "chcp 65001>nul && powershell -ExecutionPolicy Bypass -File ./scripts/allure-generate.ps1",
+    "allure:open": "chcp 65001>nul && powershell -ExecutionPolicy Bypass -File ./scripts/allure-open-latest.ps1",
+    "test:report": "chcp 65001>nul && npm run test && npm run allure:generate && npm run allure:open"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "allure-commandline": "^2.34.1",
+    "allure-playwright": "^3.4.1"
+  }
+}

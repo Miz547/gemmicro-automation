@@ -1,0 +1,154 @@
+# Gemmicro TC-018~034 XMind Outline
+
+- Gemmicro TC-018~034 Designed Cases
+  - Accepted Review Caveat
+    - TC-024: current PROD only supports single-category state validation
+    - TC-026: current PROD only supports hidden-pagination state validation
+  - Contact / 聯絡我們
+    - TC-018 Contact page loads and core heading is visible
+      - Feature: Contact
+      - Priority: P0
+      - Smoke=true
+      - Verification
+        - Open /zh-TW/contact
+        - Verify page title / main heading: 聯絡我們
+        - Verify intro copy exists and the page loads normally
+    - TC-019 Contact information cards show company names and required contact details
+      - Feature: Contact Information
+      - Priority: P0
+      - Smoke=false
+      - Verification
+        - Verify Shenzhen and Taiwan company information cards
+        - Verify address, email, phone, and other core contact information
+        - Verify distributor recruiting information exists
+    - TC-020 Contact email and phone links use correct mailto and tel targets
+      - Feature: Contact Link
+      - Priority: P1
+      - Smoke=false
+      - Verification
+        - Verify email link href is mailto
+        - Verify phone link href is tel
+        - Prevent contact entry points from being plain non-actionable text
+    - TC-021 Contact page navigation shell and mobile menu remain usable
+      - Feature: Contact Responsive Navigation
+      - Priority: P1
+      - Smoke=false
+      - Verification
+        - Switch to mobile viewport
+        - Open and close navigation menu
+        - Verify Contact page can still return to main navigation under RWD
+  - News / 新聞中心
+    - TC-022 News page loads and core heading is visible
+      - Feature: News
+      - Priority: P0
+      - Smoke=true
+      - Verification
+        - Open /zh-TW/news
+        - Verify main heading: 新聞中心
+        - Verify News page shell loads normally
+    - TC-023 News list displays required card fields
+      - Feature: News List
+      - Priority: P0
+      - Smoke=false
+      - Verification
+        - Verify news card exists
+        - Check category, date, and title fields
+        - Verify existing news title content is visible
+    - TC-024 News category filter keeps matching news visible
+      - Feature: News Filter
+      - Priority: P1
+      - Smoke=false
+      - Verification
+        - Click category filter: 行業動態
+        - Verify filtered cards still match the selected category
+        - Verify All filter restores the list
+      - Current PROD Caveat
+        - Current PROD has only one news item and one category
+        - This case validates filter interaction / DOM state consistency
+        - Full multi-category validation requires controlled test data
+    - TC-025 News read-more link opens external article safely
+      - Feature: News External Link
+      - Priority: P1
+      - Smoke=false
+      - Verification
+        - Verify news external link href
+        - Verify target=_blank
+        - Verify rel contains noopener noreferrer
+    - TC-026 News empty state and pagination state are consistent with result count
+      - Feature: News Pagination
+      - Priority: P2
+      - Smoke=false
+      - Verification
+        - Verify current result count and pagination display are consistent
+        - Pagination should not render incorrectly when data fits on one page
+        - Empty state should not display when results exist
+      - Current PROD Caveat
+        - Current PROD has 1 news item and PAGE_SIZE=10
+        - This case validates hidden pagination / empty state consistency
+        - Full pagination click testing requires more than 10 records
+  - About / 關於我們
+    - TC-027 About page loads and core heading is visible
+      - Feature: About
+      - Priority: P0
+      - Smoke=true
+      - Verification
+        - Open /zh-TW/about
+        - Verify main heading: 關於我們
+        - Verify page loads successfully
+    - TC-028 About page company introduction contains core brand facts
+      - Feature: Company Profile
+      - Priority: P0
+      - Smoke=false
+      - Verification
+        - Verify company profile section
+        - Check founded in March 2006
+        - Check MOSFET, power management, and analog product brand facts
+    - TC-029 About page competitive advantages and FAB partners are visible
+      - Feature: Competitive Advantage
+      - Priority: P1
+      - Smoke=false
+      - Verification
+        - Verify competitive advantage section
+        - Check self-developed R&D, innovation technology, and local service
+        - Check FAB partners: XFAB, ASMC, HHG, MXIC, SMIC
+    - TC-030 About page history CTA navigates to career page
+      - Feature: About CTA
+      - Priority: P1
+      - Smoke=false
+      - Verification
+        - Verify history CTA
+        - Click and verify it navigates to /zh-TW/career
+        - This case crosses About and Career, classified by Area/tags
+  - Application Note / 產品應用
+    - TC-031 Application Note page loads and core heading is visible
+      - Feature: Application Note
+      - Priority: P0
+      - Smoke=true
+      - Verification
+        - Open /zh-TW/application-note
+        - Verify main heading: 產品應用
+        - Verify Application Notes subtitle/intro
+    - TC-032 Application Note cards display expected application names
+      - Feature: Application Note List
+      - Priority: P0
+      - Smoke=false
+      - Verification
+        - Verify BMS / 電池管理系統 card
+        - Verify LCD TV / LCD 電視顯示器 card
+        - Verify application entry content is complete
+    - TC-033 Application Note PDF links use expected external file targets safely
+      - Feature: Application Note Download Link
+      - Priority: P1
+      - Smoke=false
+      - Verification
+        - Verify BMS.pdf and LCD_TV.pdf links
+        - Verify target=_blank
+        - Verify rel contains noopener noreferrer
+    - TC-034 Application Note card images are loaded and accessible
+      - Feature: Application Note Image
+      - Priority: P1
+      - Smoke=false
+      - Verification
+        - Verify BMS.svg / LCD_TV.svg image loading
+        - Check alt text
+        - Prevent broken images from reducing application page recognizability
