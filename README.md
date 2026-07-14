@@ -141,7 +141,7 @@ GitHub push / pull request
 
 Deployment of the report to GitHub Pages or Render can be added later. The first priority is to keep regression tests reproducible on every push or pull request.
 
-## Interview Talking Points
+## Points
 
 This project is not just a set of Playwright scripts. It shows a QA automation workflow:
 
