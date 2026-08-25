@@ -884,3 +884,16 @@ npm run allure:open
 - 已再次提交並推送到 `Miz547/gemmicro-homepage`：
   - commit：`04d341a Pin QA image to rebuilt sha tag`
   - push result：`2c3c1ad..04d341a main -> main`
+
+### 2026-08-25 S3 權限檢查與正式資料原則
+
+- 確認正式站 `https://www.gemmicro.com.tw/zh-TW/product_mostfet` 與 `/zh-TW/news` 均為 HTTP 200，表示正式環境的 S3 資料可正常讀取。
+- 判斷 GitHub Actions 與正式站使用不同 runtime 設定；QA container 的 AWS credentials、region、bucket 或 IAM 權限需要獨立驗證。
+- 依使用者要求移除 QA fallback 資料原則：
+  - News、MOSFET、IC、Application Notes 若 S3 資料空或讀取失敗，直接拋出錯誤。
+  - QA 不得用內建測試資料掩蓋正式資料缺失。
+- `gemmicro-homepage/.github/workflows/docker-publish.yml` 新增：
+  - GitHub Actions Secrets/Variables 空值檢查。
+  - 使用 `aws s3api head-object` 驗證 `data/product_mosfet.json` 的實際讀取權限。
+  - 啟動 container 後驗證 MOSFET API 不可為空。
+- 本機 `cmd /c npm run build` 通過。
