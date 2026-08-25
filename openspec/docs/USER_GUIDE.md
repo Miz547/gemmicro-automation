@@ -8,10 +8,17 @@
 
 ## Quick Start
 
+Set this PowerShell session to UTF-8 first, especially if you need to type or read Chinese:
+
+```powershell
+cd "C:\Users\lo762\Gemmicro_Tech_Auto"
+.\tools\setup-utf8.ps1
+```
+
 Run full test + Allure report in one line:
 
 ```powershell
-cd "C:\Users\lo762\Gemmicro_Tech_Auto"; npm test; npm run allure:generate; npm run allure:open
+cd "C:\Users\lo762\Gemmicro_Tech_Auto\playwright-tool"; npm test; npm run allure:generate; npm run allure:open
 ```
 
 ## Common Commands
@@ -20,6 +27,8 @@ cd "C:\Users\lo762\Gemmicro_Tech_Auto"; npm test; npm run allure:generate; npm r
 
 ```powershell
 cd "C:\Users\lo762\Gemmicro_Tech_Auto"
+.\tools\setup-utf8.ps1
+cd ".\playwright-tool"
 npm test
 ```
 
@@ -27,13 +36,15 @@ npm test
 
 ```powershell
 cd "C:\Users\lo762\Gemmicro_Tech_Auto"
+.\tools\setup-utf8.ps1
+cd ".\playwright-tool"
 npm run test:smoke
 ```
 
 ### Run by priority
 
 ```powershell
-cd "C:\Users\lo762\Gemmicro_Tech_Auto"
+cd "C:\Users\lo762\Gemmicro_Tech_Auto\playwright-tool"
 npm run test:p0
 npm run test:p1
 npm run test:p2
@@ -42,14 +53,14 @@ npm run test:p2
 ### Run with browser UI (headed)
 
 ```powershell
-cd "C:\Users\lo762\Gemmicro_Tech_Auto"
+cd "C:\Users\lo762\Gemmicro_Tech_Auto\playwright-tool"
 npx playwright test -g "@smoke" --headed
 ```
 
 ### Generate and open Allure report
 
 ```powershell
-cd "C:\Users\lo762\Gemmicro_Tech_Auto"
+cd "C:\Users\lo762\Gemmicro_Tech_Auto\playwright-tool"
 npm run allure:generate
 npm run allure:open
 ```
@@ -71,6 +82,8 @@ Example:
 
 ```powershell
 cd "C:\Users\lo762\Gemmicro_Tech_Auto"
+.\tools\setup-utf8.ps1
+cd ".\playwright-tool"
 npm run test:smoke
 npm run allure:generate
 npm run allure:open
@@ -100,6 +113,33 @@ npm -v
 ```
 
 If missing, install Node.js LTS and reopen PowerShell.
+
+### Cannot type or read Chinese correctly
+
+Cause: the interactive Windows terminal is not using UTF-8. You can confirm with:
+
+```powershell
+cmd /c chcp
+```
+
+If it returns `Active code page: 950`, switch the current session to UTF-8:
+
+```powershell
+cd "C:\Users\lo762\Gemmicro_Tech_Auto"
+.\tools\setup-utf8.ps1
+```
+
+Expected result:
+
+```text
+Active code page: 65001
+```
+
+This fixes the current PowerShell window only. For a persistent fix, add this line to your PowerShell profile:
+
+```powershell
+& "C:\Users\lo762\Gemmicro_Tech_Auto\tools\setup-utf8.ps1"
+```
 
 ### PowerShell script blocked (`PSSecurityException`)
 

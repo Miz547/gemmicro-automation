@@ -3,6 +3,7 @@ node_modules/
 playwright-tool/node_modules/
 
 # Playwright outputs
+.pw-grok-profile/
 playwright-report/
 test-results/
 playwright-tool/playwright-report/
@@ -49,3 +50,6 @@ desktop.ini
 tmp/
 temp/
 .tmp/
+
+# Root-level accidental npm lock; the Node project lives in playwright-tool/
+/package-lock.json

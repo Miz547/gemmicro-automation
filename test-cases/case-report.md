@@ -6,6 +6,7 @@
 - Case source: `test-cases/*.md`
 - Case ID rule: project-wide sequence ID, `TC-001` style
 - Classification source: `Feature`, `Area`, `Type`, `Priority`, `Smoke`, `Tags`
+- Traceability fields: `Requirement Source`, `Automation File`, `Test Data Limit`, `Latest Run`
 - Current total: 34 cases
 
 ## Executive Summary
@@ -49,42 +50,43 @@
 
 ## Case List
 
-| Case ID | Title | Feature | Area | Priority | Smoke | Automation | Implementation |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `TC-001` | Homepage loads successfully | Home | Home | P0 | true | Yes | Implemented |
-| `TC-002` | Key navigation items are visible | Navigation | Home | P0 | true | Yes | Implemented |
-| `TC-003` | Key zh-TW navigation redirects are correct | Navigation | Home, Product, Application, About, Contact, News | P1 | false | Yes | Implemented |
-| `TC-004` | Language switch option is visible | Language | Home | P1 | false | Yes | Implemented |
-| `TC-005` | Footer copyright information appears | Footer | Home | P2 | false | Yes | Implemented |
-| `TC-006` | MOSFET API total count matches UI pagination total and per-page rows are correct | MOSFET | Product, API | P0 | false | Yes | Implemented |
-| `TC-007` | MOSFET API field types are valid | MOSFET API | API, Data Quality | P0 | false | Yes | Implemented |
-| `TC-008` | MOSFET product page single filter and multiple filters yield correct results | MOSFET Filter | Product | P0 | false | Yes | Implemented |
-| `TC-009` | MOSFET product page multiple filters then reset restores full results | MOSFET Filter Reset | Product | P0 | false | Yes | Implemented |
-| `TC-010` | MOSFET product page filter row visibility changes with viewport width | MOSFET Responsive Filter | Product | P0 | false | Yes | Implemented |
-| `TC-011` | MOSFET API duplicate record check by pn and pn+type | MOSFET API Data Quality | API, Data Quality | P0 | false | Yes | Implemented |
-| `TC-012` | Homepage basic SEO metadata is present | SEO | Home | P1 | false | Yes | Implemented |
-| `TC-013` | Homepage image resources are healthy | Image Resource Health | Home | P1 | false | Yes | Implemented |
-| `TC-014` | Homepage has no critical console or network errors | Runtime Health | Home | P1 | false | Yes | Implemented |
-| `TC-015` | Homepage mobile menu can open and close | Mobile Navigation | Home | P1 | false | Yes | Implemented |
-| `TC-016` | Homepage basic accessibility signals are present | Accessibility | Home | P1 | false | Yes | Implemented |
-| `TC-017` | Homepage hero CTA links navigate to expected destinations | CTA Navigation | Home, Product, Contact | P1 | false | Yes | Implemented |
-| `TC-018` | Contact page loads and core heading is visible | Contact | Contact | P0 | true | Yes | Implemented |
-| `TC-019` | Contact information cards show company names and required contact details | Contact Information | Contact | P0 | false | Yes | Implemented |
-| `TC-020` | Contact email and phone links use correct mailto and tel targets | Contact Link | Contact | P1 | false | Yes | Implemented |
-| `TC-021` | Contact page navigation shell and mobile menu remain usable | Contact Responsive Navigation | Contact, Navigation | P1 | false | Yes | Implemented |
-| `TC-022` | News page loads and core heading is visible | News | News | P0 | true | Yes | Implemented |
-| `TC-023` | News list displays required card fields | News List | News | P0 | false | Yes | Implemented |
-| `TC-024` | News category filter keeps matching news visible | News Filter | News | P1 | false | Yes | Implemented |
-| `TC-025` | News read-more link opens external article safely | News External Link | News | P1 | false | Yes | Implemented |
-| `TC-026` | News empty state and pagination state are consistent with result count | News Pagination | News | P2 | false | Yes | Implemented |
-| `TC-027` | About page loads and core heading is visible | About | About | P0 | true | Yes | Implemented |
-| `TC-028` | About page company introduction contains core brand facts | Company Profile | About | P0 | false | Yes | Implemented |
-| `TC-029` | About page competitive advantages and FAB partners are visible | Competitive Advantage | About | P1 | false | Yes | Implemented |
-| `TC-030` | About page history CTA navigates to career page | About CTA | About, Career | P1 | false | Yes | Implemented |
-| `TC-031` | Application Note page loads and core heading is visible | Application Note | Application | P0 | true | Yes | Implemented |
-| `TC-032` | Application Note cards display expected application names | Application Note List | Application | P0 | false | Yes | Implemented |
-| `TC-033` | Application Note PDF links use expected external file targets safely | Application Note Download Link | Application | P1 | false | Yes | Implemented |
-| `TC-034` | Application Note card images are loaded and accessible | Application Note Image | Application | P1 | false | Yes | Implemented |
+| Case ID | Title | Feature | Area | Priority | Smoke | Automation | Implementation | Requirement Source | Automation File | Test Data Limit | Latest Run |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `TC-001` | Homepage loads successfully | Home | Home | P0 | true | Yes | Implemented | `test-cases/gemmicro-homepage.md` | `playwright-tool/tests/smoke/homepage.smoke.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-002` | Key navigation items are visible | Navigation | Home | P0 | true | Yes | Implemented | `test-cases/gemmicro-homepage.md` | `playwright-tool/tests/smoke/homepage.smoke.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-003` | Key zh-TW navigation redirects are correct | Navigation | Home, Product, Application, About, Contact, News | P1 | false | Yes | Implemented | `test-cases/gemmicro-homepage.md` | `playwright-tool/tests/smoke/homepage.smoke.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-004` | Language switch option is visible | Language | Home | P1 | false | Yes | Implemented | `test-cases/gemmicro-homepage.md` | `playwright-tool/tests/smoke/homepage.smoke.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-005` | Footer copyright information appears | Footer | Home | P2 | false | Yes | Implemented | `test-cases/gemmicro-homepage.md` | `playwright-tool/tests/smoke/homepage.smoke.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-006` | MOSFET API total count matches UI pagination total and per-page rows are correct | MOSFET | Product, API | P0 | false | Yes | Implemented | `test-cases/ai-design_case.md` | `playwright-tool/tests/functional/mosfet-product.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-007` | MOSFET API field types are valid | MOSFET API | API, Data Quality | P0 | false | Yes | Implemented | `test-cases/ai-design_case.md` | `playwright-tool/tests/api/mosfet-api.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-008` | MOSFET product page single filter and multiple filters yield correct results | MOSFET Filter | Product | P0 | false | Yes | Implemented | `test-cases/ai-design_case.md` | `playwright-tool/tests/functional/mosfet-product.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-009` | MOSFET product page multiple filters then reset restores full results | MOSFET Filter Reset | Product | P0 | false | Yes | Implemented | `test-cases/ai-design_case.md` | `playwright-tool/tests/functional/mosfet-product.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-010` | MOSFET product page filter row visibility changes with viewport width | MOSFET Responsive Filter | Product | P0 | false | Yes | Implemented | `test-cases/ai-design_case.md` | `playwright-tool/tests/functional/mosfet-product.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-011` | MOSFET API duplicate record check by pn and pn+type | MOSFET API Data Quality | API, Data Quality | P0 | false | Yes | Implemented | `test-cases/ai-design_case.md` | `playwright-tool/tests/api/mosfet-api.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-012` | Homepage basic SEO metadata is present | SEO | Home | P1 | false | Yes | Implemented | `test-cases/gemmicro-homepage.md` | `playwright-tool/tests/ui/homepage-quality.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-013` | Homepage image resources are healthy | Image Resource Health | Home | P1 | false | Yes | Implemented | `test-cases/gemmicro-homepage.md` | `playwright-tool/tests/ui/homepage-quality.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-014` | Homepage has no critical console or network errors | Runtime Health | Home | P1 | false | Yes | Implemented | `test-cases/gemmicro-homepage.md` | `playwright-tool/tests/ui/homepage-quality.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-015` | Homepage mobile menu can open and close | Mobile Navigation | Home | P1 | false | Yes | Implemented | `test-cases/gemmicro-homepage.md` | `playwright-tool/tests/ui/homepage-quality.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-016` | Homepage basic accessibility signals are present | Accessibility | Home | P1 | false | Yes | Implemented | `test-cases/gemmicro-homepage.md` | `playwright-tool/tests/ui/homepage-quality.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-017` | Homepage hero CTA links navigate to expected destinations | CTA Navigation | Home, Product, Contact | P1 | false | Yes | Implemented | `test-cases/gemmicro-homepage.md` | `playwright-tool/tests/ui/homepage-quality.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-018` | Contact page loads and core heading is visible | Contact | Contact | P0 | true | Yes | Implemented | `test-cases/contact.md` | `playwright-tool/tests/functional/contact.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-019` | Contact information cards show company names and required contact details | Contact Information | Contact | P0 | false | Yes | Implemented | `test-cases/contact.md` | `playwright-tool/tests/functional/contact.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-020` | Contact email and phone links use correct mailto and tel targets | Contact Link | Contact | P1 | false | Yes | Implemented | `test-cases/contact.md` | `playwright-tool/tests/functional/contact.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-021` | Contact page navigation shell and mobile menu remain usable | Contact Responsive Navigation | Contact, Navigation | P1 | false | Yes | Implemented | `test-cases/contact.md` | `playwright-tool/tests/functional/contact.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-022` | News page loads and core heading is visible | News | News | P0 | true | Yes | Implemented | `test-cases/news.md` | `playwright-tool/tests/functional/news.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-023` | News list displays required card fields | News List | News | P0 | false | Yes | Implemented | `test-cases/news.md` | `playwright-tool/tests/functional/news.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-024` | News category filter keeps matching news visible | News Filter | News | P1 | false | Yes | Implemented | `test-cases/news.md` | `playwright-tool/tests/functional/news.spec.ts` | Current PROD has one visible news item and one category; full multi-category coverage requires controlled test data. | 20260711/002: 34 passed |
+| `TC-025` | News read-more link opens external article safely | News External Link | News | P1 | false | Yes | Implemented | `test-cases/news.md` | `playwright-tool/tests/functional/news.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-026` | News empty state and pagination state are consistent with result count | News Pagination | News | P2 | false | Yes | Implemented | `test-cases/news.md` | `playwright-tool/tests/functional/news.spec.ts` | Current PROD has fewer than 10 news items; full pagination click testing requires controlled test data with more than 10 items. | 20260711/002: 34 passed |
+| `TC-027` | About page loads and core heading is visible | About | About | P0 | true | Yes | Implemented | `test-cases/about.md` | `playwright-tool/tests/functional/about.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-028` | About page company introduction contains core brand facts | Company Profile | About | P0 | false | Yes | Implemented | `test-cases/about.md` | `playwright-tool/tests/functional/about.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-029` | About page competitive advantages and FAB partners are visible | Competitive Advantage | About | P1 | false | Yes | Implemented | `test-cases/about.md` | `playwright-tool/tests/functional/about.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-030` | About page history CTA navigates to career page | About CTA | About, Career | P1 | false | Yes | Implemented | `test-cases/about.md` | `playwright-tool/tests/functional/about.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-031` | Application Note page loads and core heading is visible | Application Note | Application | P0 | true | Yes | Implemented | `test-cases/application-note.md` | `playwright-tool/tests/functional/application-note.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-032` | Application Note cards display expected application names | Application Note List | Application | P0 | false | Yes | Implemented | `test-cases/application-note.md` | `playwright-tool/tests/functional/application-note.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+| `TC-033` | Application Note PDF links use expected external file targets safely | Application Note Download Link | Application | P1 | false | Yes | Implemented | `test-cases/application-note.md` | `playwright-tool/tests/functional/application-note.spec.ts` | Validates PDF link targets only; PDF content validation is not included. | 20260711/002: 34 passed |
+| `TC-034` | Application Note card images are loaded and accessible | Application Note Image | Application | P1 | false | Yes | Implemented | `test-cases/application-note.md` | `playwright-tool/tests/functional/application-note.spec.ts` | No special limitation documented. | 20260711/002: 34 passed |
+
 
 ## Latest Automation Result
 
