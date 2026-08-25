@@ -897,3 +897,16 @@ npm run allure:open
   - 使用 `aws s3api head-object` 驗證 `data/product_mosfet.json` 的實際讀取權限。
   - 啟動 container 後驗證 MOSFET API 不可為空。
 - 本機 `cmd /c npm run build` 通過。
+
+### 2026-08-26 暫停於 QA 流程決策
+
+- 確認 GitHub Actions 是執行平台；目前由其中的 Playwright Chromium 執行 browser UI 測試，另有 Playwright request API 測試。
+- 暫不把 `https://www.gemmicro.com.tw/zh-TW/product_mostfet` 當成 release 前 QA 目標：直接測正式網址只會驗證 production，不能驗證 RD 這次 candidate image。
+- release 前仍維持：
+  - RD push/merge。
+  - Build candidate image。
+  - 使用 candidate 執行 QA gate。
+  - 通過後發布同一個 image。
+- 正式網址可保留作為未來 release 後 post-deploy smoke test。
+- 目前已知阻塞點：GitHub Actions 缺少 `AWS_ACCESS_KEY_ID`，因此無法讀取私有 S3；尚未進行下一次正式 QA run。
+- 暫停於此，待 AWS/S3 權限或後續測試策略確認後再繼續。
