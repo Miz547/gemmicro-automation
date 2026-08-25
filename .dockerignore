@@ -1,0 +1,9 @@
+.git
+node_modules
+playwright-tool/node_modules
+playwright-tool/allure-results
+playwright-tool/allure-reports
+playwright-tool/playwright-report
+playwright-tool/test-results
+.pw-grok-profile
+*.log

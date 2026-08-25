@@ -1,4 +1,5 @@
 import type { Locator, Page, Response } from "@playwright/test";
+import { appUrl } from "../config/env";
 
 export type PaginationState = {
   start: number;
@@ -7,7 +8,7 @@ export type PaginationState = {
   raw: string;
 };
 
-const PRODUCT_PAGE_URL = "https://www.gemmicro.com.tw/zh-TW/product_mostfet";
+const PRODUCT_PAGE_PATH = "product_mostfet";
 const MOSFET_API_URL_PATTERN = /\/zh-TW\/api\/mosfet|\/api\/mosfet/;
 
 export class ProductPage {
@@ -33,7 +34,7 @@ export class ProductPage {
       { timeout: 15000 }
     );
 
-    await this.page.goto(PRODUCT_PAGE_URL);
+    await this.page.goto(appUrl(PRODUCT_PAGE_PATH));
     return apiResponsePromise;
   }
 

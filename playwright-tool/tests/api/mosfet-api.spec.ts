@@ -1,7 +1,8 @@
 import { test, expect } from "../../fixtures/test.fixture";
 import * as allure from "allure-js-commons";
+import { appUrl } from "../../config/env";
 
-const MOSFET_API_URL = "https://www.gemmicro.com.tw/zh-TW/api/mosfet";
+const MOSFET_API_PATH = "api/mosfet";
 const ALLOWED_FIELD_TYPES = new Set(["string", "number", "boolean", "null"]);
 
 type MosfetRecord = Record<string, unknown>;
@@ -50,7 +51,7 @@ test.describe("Gemmicro MOSFET API cases", () => {
       "Verify every MOSFET API field value is a supported primitive JSON type."
     );
 
-    const response = await request.get(MOSFET_API_URL);
+    const response = await request.get(appUrl(MOSFET_API_PATH));
     expect(response.ok()).toBeTruthy();
 
     const payload = await response.json();
@@ -89,7 +90,7 @@ test.describe("Gemmicro MOSFET API cases", () => {
       "Verify pn duplicates are reported and pn + type composite duplicates fail the test."
     );
 
-    const response = await request.get(MOSFET_API_URL);
+    const response = await request.get(appUrl(MOSFET_API_PATH));
     expect(response.ok()).toBeTruthy();
 
     const payload = await response.json();

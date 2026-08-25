@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import { getBaseUrl } from "./config/env";
 
 export default defineConfig({
   globalSetup: "./global-setup.ts",
@@ -15,7 +16,7 @@ export default defineConfig({
     ["allure-playwright", { resultsDir: "allure-results" }]
   ],
   use: {
-    baseURL: "https://www.gemmicro.com.tw/zh-TW/",
+    baseURL: getBaseUrl(),
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure"
