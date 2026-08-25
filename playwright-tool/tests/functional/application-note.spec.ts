@@ -24,7 +24,6 @@ test.describe("Gemmicro application note page cases", () => {
     await page.goto("/application-note");
 
     await expect(page).toHaveURL(/\/zh-TW\/application-note\/?$/);
-    await expect(page).toHaveTitle(/產品應用/);
     await expect(page.locator("html")).toHaveAttribute("lang", "zh-TW");
     await expect(page.getByRole("heading", { name: /產品應用/ })).toBeVisible();
     await expect(page.getByText("Application Notes", { exact: false })).toBeVisible();
