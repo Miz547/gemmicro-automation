@@ -866,12 +866,21 @@ npm run allure:open
   - `curl.exe -i http://127.0.0.1:4323/zh-TW/news`
   - 結果：`HTTP/1.1 200 OK`，HTML 內含 `.news-card`、`行業動態`、`閱讀更多`。
 
-### 待推送
+### 推送結果
 
-- `gemmicro-homepage` 待提交：
-  - `.github/workflows/docker-publish.yml`
-  - `src/lib/db.ts`
-  - `src/lib/storage.ts`
-- `gemmicro-automation` 待提交：
-  - `.github/workflows/qa-image.yml`
-  - `openspec/changes/worklog.md`
+- 已提交並推送到 `Miz547/gemmicro-homepage`：
+  - commit：`2c3c1ad Stabilize QA gate data and image promotion`
+  - push result：`963b664..2c3c1ad main -> main`
+- 已提交並推送到 `Miz547/gemmicro-automation`：
+  - commit：`6f641fd Document GitHub QA gate workflow`
+  - push result：`0fdc9d1..6f641fd main -> main`
+- 已確認 `gemmicro-automation` QA image rebuild 成功：
+  - workflow：`Build QA Docker Image`
+  - run number：`6`
+  - run URL：`https://github.com/Miz547/gemmicro-automation/actions/runs/32865195010`
+  - status：`completed`
+  - conclusion：`success`
+- 已將 `gemmicro-homepage` workflow 預設 QA image tag 更新為成功 build 的 `sha-6f641fd`。
+- 已再次提交並推送到 `Miz547/gemmicro-homepage`：
+  - commit：`04d341a Pin QA image to rebuilt sha tag`
+  - push result：`2c3c1ad..04d341a main -> main`
