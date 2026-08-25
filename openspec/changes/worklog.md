@@ -579,3 +579,168 @@ npm run allure:open
   - `cmd /c npx playwright test tests/functional/contact.spec.ts tests/functional/news.spec.ts tests/functional/about.spec.ts tests/functional/application-note.spec.ts` -> `17 passed`
   - `npm run test` -> `34 passed`
   - `npm run allure:generate` -> `playwright-tool/allure-reports/20260711/002`
+
+## 2026-08-25
+
+### GitHub Actions 釐清
+
+- User 指定後續要處理的是 GitHub Actions 頁面：
+  - `https://github.com/Miz547/gemmicro-homepage/actions`
+- 已確認目前本機工作目錄 `C:\Users\lo762\Gemmicro_Tech_Auto` 的 Git remote 是：
+  - `https://github.com/Miz547/gemmicro-automation.git`
+- 已確認 user 指定的遠端 repo 是另一個 repository：
+  - `https://github.com/Miz547/gemmicro-homepage.git`
+  - 遠端 HEAD：`271ab5c9508663c6b8380962ddb3e1b67343b632`
+- 已將 `gemmicro-homepage` clone 到本 workspace 內供檢查：
+  - `C:\Users\lo762\Gemmicro_Tech_Auto\_github_gemmicro_homepage`
+- `gemmicro-homepage` 目前只有一個 workflow：
+  - `_github_gemmicro_homepage/.github/workflows/docker-publish.yml`
+- 該 workflow 目前流程：
+  - build `gemmicro-homepage-under-test` Docker image。
+  - 建立 `gemmicro-qa` Docker network。
+  - 啟動 homepage container。
+  - 等待 `http://gemmicro-homepage:4321/zh-TW/` 可連線。
+  - 使用 `ghcr.io/miz547/gemmicro-automation-qa:latest` 執行 `npm run test:smoke`。
+  - 使用同一 QA image 執行 `npm run test:p0`。
+  - 測試通過後 build/push homepage Docker image 到 GHCR。
+
+### 待處理重點
+
+- 後續主要應處理 `Miz547/gemmicro-homepage` 的 `.github/workflows/docker-publish.yml`，不是只處理本 QA automation repo。
+- GitHub API 查詢 Actions runs 回傳 `404 Not Found`，推測可能是 repo 權限或未登入 token 限制；目前只能透過 local clone 與 workflow 檔案判斷。
+- 最近 `gemmicro-homepage` commit 顯示正在 retry QA gate：
+  - `271ab5c Retry QA gate after smoke fix`
+  - `052c3dc Retry QA gate after image rebuild`
+  - `51c6e18 Run QA automation in Docker publish flow`
+- 需優先檢查 Actions 失敗點：
+  - GHCR 是否能 pull `ghcr.io/miz547/gemmicro-automation-qa:latest`。
+  - homepage container 是否真的在 `4321` 啟動並提供 `/zh-TW/`。
+  - QA image 內的 Playwright 測試是否已對齊 `gemmicro-homepage` 目前頁面內容。
+  - `test:smoke` 與 `test:p0` 分開跑是否造成重複清理 results，但不影響 gate 結果。
+
+### 本次注意
+
+- 先前曾在目前 QA automation repo 新增 `.github/workflows/playwright-ci.yml` 並更新 `README.md`，但 user 後續明確指出要處理的是 `Miz547/gemmicro-homepage/actions`。
+- 因此後續不要把 automation repo 的新增 workflow 當作已完成 `gemmicro-homepage` Actions 修復。
+
+### GitHub Actions 失敗原因確認
+
+- User 提供 `gemmicro-homepage` Actions 最新失敗 log。
+- 失敗 workflow/job：
+  - workflow：`Build and Publish Docker Image`
+  - job：`build-and-push`
+  - 失敗步驟：`Run QA smoke tests`
+- GHCR image pull 成功：
+  - `ghcr.io/miz547/gemmicro-automation-qa:latest`
+  - pull digest：`sha256:61f61f2226088fc831ee5eacdfb94b4cfc1747d23cac682272b2f7fdd4de6d41`
+- 實際測試結果：
+  - `test:smoke` 共 6 tests。
+  - `5 passed`
+  - `1 failed`
+- 失敗 case：
+  - `TC-031 @application @application-note @smoke @P0 Application Note page loads and core heading is visible`
+- 失敗斷言：
+  - QA image 內的 `tests/functional/application-note.spec.ts:28` 仍檢查：
+    - `page.getByRole("heading", { name: /產品應用/ })`
+  - GitHub Actions 上的 `gemmicro-homepage` 當前 `/zh-TW/application-note` 頁面找不到該 heading。
+- runtime log 也有：
+  - `[console.error] Failed to load resource: the server responded with a status of 500 (OK)`
+
+### 失敗判斷
+
+- 這次不是 GHCR pull 失敗，也不是 homepage container health check 失敗。
+- 主要原因是 QA image 內測試碼仍是舊期待，還在檢查 `產品應用` heading。
+- 本機 `gemmicro-automation` repo 的 `application-note.spec.ts` 已經是新版內容：
+  - `TC-031` 不再檢查 `產品應用`。
+  - 改檢查 `Application Notes` 與第一個 PDF link。
+- 已確認 `gemmicro-automation` 遠端 `main` 包含最新版修正：
+  - commit：`98362c27316c27d6054a834373734d3a5a5ffb3e`
+  - message：`Make application note smoke gate content-stable`
+- 已確認 `gemmicro-automation` 的 QA image workflow 最新 run 成功：
+  - workflow：`Build QA Docker Image`
+  - run number：`4`
+  - conclusion：`success`
+  - run URL：`https://github.com/Miz547/gemmicro-automation/actions/runs/32828373131`
+  - completed：`2026-08-25T08:48:34Z`
+
+### 已處理
+
+- 已在 `gemmicro-homepage` clone 內更新 `.github/workflows/docker-publish.yml`。
+- 更新內容：
+  - 新增 `workflow_dispatch`，方便手動重跑。
+  - `Log in to GitHub Container Registry` 改為 `pull_request` 以外才執行。
+  - 啟動 homepage container 時補上：
+    - `AWS_ACCESS_KEY_ID`
+    - `AWS_SECRET_ACCESS_KEY`
+    - `AWS_REGION`
+    - `S3_DATA_URI`
+    - `DATASHEET_BASE_URL`
+  - QA smoke / P0 Docker run 掛載 artifact 目錄：
+    - `allure-results`
+    - `test-results`
+    - `playwright-report`
+  - 新增 `Upload QA artifacts`，保留失敗證據 14 天。
+  - 失敗時輸出 homepage container logs。
+  - job 結束時清理 homepage container 與 Docker network。
+- 已提交並推送到 `Miz547/gemmicro-homepage`：
+  - commit：`b03e615 Improve Docker QA workflow diagnostics`
+  - push result：`271ab5c..b03e615 main -> main`
+
+### 下一步
+
+- 到 `https://github.com/Miz547/gemmicro-homepage/actions` 檢查 commit `b03e615` 觸發的新 run。
+- 若新 run 的 smoke 已通過但 P0 失敗，優先下載 `qa-artifacts`，檢查：
+  - `p0/test-results`
+  - `p0/allure-results`
+  - homepage container logs
+- 若仍停在 `TC-031` 且 log 仍顯示 `產品應用`，代表 GHCR `latest` 還沒更新到 run number 4 的 image，需要重新觸發 `gemmicro-automation` 的 `Build QA Docker Image` workflow。
+
+### 2026-08-25 GitHub Actions Warning 與 Artifact 修正
+
+- User 提供 `b03e615` 新 run 的 warning：
+  - `Node.js 20 is deprecated`
+  - affected actions：
+    - `actions/checkout@v4`
+    - `actions/upload-artifact@v4`
+    - `docker/login-action@v3`
+    - `docker/metadata-action@v5`
+    - `docker/setup-buildx-action@v3`
+- 判斷：
+  - 這是 warning，不是 job 失敗主因。
+  - 仍應升級 action major version，避免後續 runner 強制轉 Node 24 的相容性風險。
+- 已升級 `gemmicro-homepage/.github/workflows/docker-publish.yml`：
+  - `actions/checkout@v4` -> `actions/checkout@v5`
+  - `docker/login-action@v3` -> `docker/login-action@v4`
+  - `docker/metadata-action@v5` -> `docker/metadata-action@v6`
+  - `docker/setup-buildx-action@v3` -> `docker/setup-buildx-action@v4`
+  - `actions/upload-artifact@v4` -> `actions/upload-artifact@v6`
+  - `docker/build-push-action@v5` -> `docker/build-push-action@v7`
+- User 同時提供 `b03e615` 新 run 的實際 error：
+  - `node:fs:1222`
+  - `Error: Unknown error: Device or resource busy '/qa/allure-results'`
+  - 發生於 QA image 內 `scripts/clean-results.mjs` 執行 `fs.rmSync('/qa/allure-results')`。
+- 判斷：
+  - `b03e615` 將 host 目錄直接 bind mount 到 `/qa/allure-results`。
+  - QA image 的 `clean-results.mjs` 會刪除整個 `allure-results` 目錄。
+  - Linux container 不能刪除 bind mount 掛載點本身，因此失敗。
+- 已修正 artifact 收集方式：
+  - 不再直接 bind mount `/qa/allure-results`、`/qa/test-results`、`/qa/playwright-report`。
+  - 改用具名 container 執行 QA：
+    - `gemmicro-qa-smoke`
+    - `gemmicro-qa-p0`
+  - 測試結束後用 `docker cp` 從 container 複製：
+    - `/qa/allure-results`
+    - `/qa/test-results`
+    - `/qa/playwright-report`
+  - 再刪除 QA container，並保留原本測試 exit code。
+- 已提交並推送到 `Miz547/gemmicro-homepage`：
+  - commit：`d76c20a Update workflow actions and artifact copy`
+  - push result：`b03e615..d76c20a main -> main`
+
+### 下一步
+
+- 到 `https://github.com/Miz547/gemmicro-homepage/actions` 檢查 commit `d76c20a` 的新 run。
+- 預期：
+  - Node.js 20 deprecation warning 應消失或大幅減少。
+  - `Device or resource busy '/qa/allure-results'` 應消失。
+- 若仍失敗，下一個要看的會是真正 Playwright case failure，而不是 artifact 掛載錯誤。

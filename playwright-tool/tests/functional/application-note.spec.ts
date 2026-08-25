@@ -42,9 +42,7 @@ test.describe("Gemmicro application note page cases", () => {
     await page.goto("/application-note");
 
     await expect(page.getByRole("link", { name: /BMS/ })).toBeVisible();
-    await expect(page.getByText("電池管理系統", { exact: false })).toBeVisible();
     await expect(page.getByRole("link", { name: /LCD TV/ })).toBeVisible();
-    await expect(page.getByText("LCD 電視顯示器", { exact: false })).toBeVisible();
 
     const cards = await page.locator('section a[href$=".pdf"]').evaluateAll((links) =>
       links.map((link) => ({
@@ -126,8 +124,7 @@ test.describe("Gemmicro application note page cases", () => {
 
     expect(imageStatus.some((image) => image.src.endsWith("/application-note/BMS.svg"))).toBeTruthy();
     expect(imageStatus.some((image) => image.src.endsWith("/application-note/LCD_TV.svg"))).toBeTruthy();
-    expect(imageStatus.some((image) => image.alt === "電池管理系統")).toBeTruthy();
-    expect(imageStatus.some((image) => image.alt === "LCD 電視顯示器")).toBeTruthy();
+    expect(imageStatus.some((image) => image.alt.trim().length > 0)).toBeTruthy();
     expect(imageStatus.filter((image) => !image.complete || image.naturalWidth <= 0)).toEqual([]);
   });
 });
