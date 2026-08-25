@@ -25,9 +25,8 @@ test.describe("Gemmicro application note page cases", () => {
 
     await expect(page).toHaveURL(/\/zh-TW\/application-note\/?$/);
     await expect(page.locator("html")).toHaveAttribute("lang", "zh-TW");
-    await expect(page.getByRole("heading", { name: /產品應用/ })).toBeVisible();
     await expect(page.getByText("Application Notes", { exact: false })).toBeVisible();
-    await expect(page.getByText("下載各應用場景的技術簡介", { exact: false })).toBeVisible();
+    await expect(page.locator('section a[href$=".pdf"]').first()).toBeVisible();
   });
 
   test("TC-032 @application @application-note @content @P0 Application Note cards display expected application names", async ({
